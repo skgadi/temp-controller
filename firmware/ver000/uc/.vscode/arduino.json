@@ -1,0 +1,7 @@
+{
+    "sketch": "uc.ino",
+    "configuration": "PartitionScheme=default,FlashMode=qio,FlashFreq=80,UploadSpeed=921600,DebugLevel=none",
+    "board": "esp32:esp32:esp32wrover",
+    "output": "../ArduinoOutput",
+    "port": "COM6"
+}
