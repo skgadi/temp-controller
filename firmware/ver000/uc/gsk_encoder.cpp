@@ -12,6 +12,9 @@ void GSK_ENCODER::setup() {
   setBoundraies(0,4,true);
   rotaryEncoder.setBoundaries(0, 800, true);
   rotaryEncoder.setAcceleration(250);
+  reset();
+  readNResetBtn();
+
 }
 
 void GSK_ENCODER::readEncoderISRLocal() {
