@@ -5,6 +5,7 @@ GSK_ENCODER::GSK_ENCODER() {
 }
 
 void GSK_ENCODER::setup() {
+  pinMode(PIN_ENC_SW, INPUT_PULLUP);
   rotaryEncoder = AiEsp32RotaryEncoder(ROTARY_ENCODER_A_PIN, ROTARY_ENCODER_B_PIN, ROTARY_ENCODER_BUTTON_PIN, ROTARY_ENCODER_VCC_PIN, ROTARY_ENCODER_STEPS);
   rotaryEncoder.begin();
   rotaryEncoder.setup(readEncoderISR);
@@ -27,7 +28,7 @@ void GSK_ENCODER::setValue (int val) {
 }
 
 int GSK_ENCODER::getValue() {
-  return rotaryEncoder.getAcceleration();
+  return rotaryEncoder.readEncoder();
 }
 
 void GSK_ENCODER::setBoundraies(int min, int max, bool cycle) {
@@ -50,23 +51,12 @@ bool GSK_ENCODER::readNResetBtn() {
 
 void GSK_ENCODER::loop() {
   if (readPressed) {
-    if (((millis() - lastPressed) > 100) && !rotaryEncoder.isEncoderButtonClicked()) {
+    if (((millis() - lastPressed) > 100) && digitalRead(PIN_ENC_SW)) {
       readPressed = false;
       btnState = true;
     }
   } else {
-    readPressed = rotaryEncoder.isEncoderButtonClicked();
+    readPressed = !digitalRead(PIN_ENC_SW);
   }
 }
 
-void rotary_onButtonClick() {
-	static unsigned long lastTimePressed = 0;
-	//ignore multiple press in that time milliseconds
-	if (millis() - lastTimePressed < 500) {
-		return;
-	}
-	lastTimePressed = millis();
-	Serial.print("button pressed ");
-	Serial.print(millis());
-	Serial.println(" milliseconds after restart");
-}

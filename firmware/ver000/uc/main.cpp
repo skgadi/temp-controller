@@ -65,7 +65,7 @@ void loop () {
       Serial.println(gsk_encoder->getValue());
     }
   }
-  delay(10);
+  gsk_encoder->loop();
 }
 
 void IRAM_ATTR readEncoderISR() {
