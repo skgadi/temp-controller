@@ -17,7 +17,6 @@ class GSK_STATE {
   bool relayState[4];
   int cursorPosition;
   void setup();
-  float r, y, u;
   GSK_SENSOR* sensor;
   GSK_PID* pid;
   GSK_ENCODER* encoder;

@@ -11,10 +11,15 @@ void GSK_STATE::setup() {
   encoder = new GSK_ENCODER();
   pid = new GSK_PID();
   lcd = new GSK_LCD();
+  editMode = false;
+  cursorPosition = 0;
+  setPoint = 0;
 }
 
 void GSK_STATE::loop() {
-  
+  pid->updateY(sensor->readTemperature());
+
+  pid->loop();
 }
 
 

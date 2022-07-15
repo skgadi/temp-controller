@@ -9,12 +9,10 @@ void GSK_ENCODER::setup() {
   rotaryEncoder = AiEsp32RotaryEncoder(ROTARY_ENCODER_A_PIN, ROTARY_ENCODER_B_PIN, ROTARY_ENCODER_BUTTON_PIN, ROTARY_ENCODER_VCC_PIN, ROTARY_ENCODER_STEPS);
   rotaryEncoder.begin();
   rotaryEncoder.setup(readEncoderISR);
-  setBoundraies(0,4,true);
-  rotaryEncoder.setBoundaries(0, 800, true);
+  setBoundaries(0, 5000, false);
   rotaryEncoder.setAcceleration(250);
   reset();
   readNResetBtn();
-
 }
 
 void GSK_ENCODER::isr() {
@@ -34,7 +32,7 @@ int GSK_ENCODER::getValue() {
   return rotaryEncoder.readEncoder();
 }
 
-void GSK_ENCODER::setBoundraies(int min, int max, bool cycle) {
+void GSK_ENCODER::setBoundaries(int min, int max, bool cycle) {
   rotaryEncoder.setBoundaries(min, max, cycle);
 }
 

@@ -25,7 +25,7 @@ class GSK_ENCODER {
   void reset();
   void setValue(int);
   int getValue();
-  void setBoundraies(int, int, bool);
+  void setBoundaries(int, int, bool = false);
   void loop();
   bool readNResetBtn();
   bool readBtn();
