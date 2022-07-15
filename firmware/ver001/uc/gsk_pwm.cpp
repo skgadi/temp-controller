@@ -1,4 +1,4 @@
-#include "gsk_pwm.h"
+#include "gsk_all_loaded.h"
 
 GSK_PWM::GSK_PWM() {
   setup();

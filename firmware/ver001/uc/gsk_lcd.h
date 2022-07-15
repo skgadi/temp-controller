@@ -11,7 +11,8 @@ class GSK_LCD {
   void resetDispaly();
   public:
   GSK_LCD();
-  void showWelcome();
+  void putTemplate();
+  void putValues(void*);
 };
 
 #endif

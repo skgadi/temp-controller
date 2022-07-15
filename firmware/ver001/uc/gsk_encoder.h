@@ -30,7 +30,7 @@ class GSK_ENCODER {
   bool readNResetBtn();
   bool readBtn();
   void writeBtn(bool);
-  void readEncoderISRLocal();
+  void isr();
 };
 
 #endif

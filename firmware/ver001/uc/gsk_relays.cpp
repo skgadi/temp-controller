@@ -1,4 +1,4 @@
-#include "gsk_relays.h"
+#include "gsk_all_loaded.h"
 
 GSK_RELAYS::GSK_RELAYS() {
   setup();

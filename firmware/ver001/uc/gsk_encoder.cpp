@@ -1,4 +1,4 @@
-#include "gsk_encoder.h"
+#include "gsk_all_loaded.h"
 
 GSK_ENCODER::GSK_ENCODER() {
   setup();
@@ -17,7 +17,7 @@ void GSK_ENCODER::setup() {
 
 }
 
-void GSK_ENCODER::readEncoderISRLocal() {
+void GSK_ENCODER::isr() {
 	rotaryEncoder.readEncoder_ISR();
 }
 
