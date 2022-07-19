@@ -5,7 +5,12 @@ GSK_PID::GSK_PID() : pid(&y, &u, &r) {
 }
 
 void GSK_PID::setup() {
+  r=0;
   pid.SetSampleTimeUs(100000);
+  pid.SetOutputLimits(0, 1);
+  pid.SetTunings(Kp, Ki, Kd);
+  pid.SetMode(pid.Control::automatic);
+
 }
 
 void GSK_PID::loop() {
@@ -16,11 +21,18 @@ float GSK_PID::getU() {
   return u;
 }
 
-void GSK_PID::updateR(float r) {
+void GSK_PID::setR(float r) {
   this->r = r;
 }
 
-void GSK_PID::updateY(float y) {
+void GSK_PID::setY(float y) {
   this->y = y;
 }
 
+float GSK_PID::getR() {
+  return r;
+}
+
+float GSK_PID::getY() {
+  return y;
+}

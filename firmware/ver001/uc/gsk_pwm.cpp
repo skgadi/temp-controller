@@ -5,6 +5,7 @@ GSK_PWM::GSK_PWM() {
 }
 
 void GSK_PWM::setup() {
+  pinMode(PIN_PWM, OUTPUT);
   ledcSetup(pwmChannl, pwmFrequency, pwmResolution);
   ledcAttachPin(PIN_PWM, pwmChannl);
   switchOff();

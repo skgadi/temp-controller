@@ -17,6 +17,7 @@ void GSK_RELAYS::setup () {
 }
 
 void GSK_RELAYS::setStateFor(int relayNo, bool val) {
+  pinMode(pins[relayNo], OUTPUT);
   digitalWrite(pins[relayNo], val);
   states[relayNo] = val;
 }

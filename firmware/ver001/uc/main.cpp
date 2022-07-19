@@ -10,6 +10,14 @@ void setup() {
 
   gsk_state = new GSK_STATE();
 
+  //pinMode(32, OUTPUT);
+  //pinMode(33, OUTPUT);
+  //pinMode(25, OUTPUT);
+  //pinMode(26, OUTPUT);
+  //digitalWrite(32, HIGH);
+  //digitalWrite(33, HIGH);
+  //digitalWrite(25, HIGH);
+  //digitalWrite(26, HIGH);
 }
 
 void loop () {

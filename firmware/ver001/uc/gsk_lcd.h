@@ -9,6 +9,9 @@ class GSK_LCD {
   LiquidCrystal_I2C lcd;
   void setup();
   void resetDispaly();
+  int getOffsetPosition(float);
+  float prevSetPoint;
+  float prevTemperature;
   public:
   GSK_LCD();
   void putTemplate();

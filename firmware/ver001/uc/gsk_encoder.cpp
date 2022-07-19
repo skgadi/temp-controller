@@ -52,9 +52,17 @@ bool GSK_ENCODER::readNResetBtn() {
 
 void GSK_ENCODER::loop() {
   if (readPressed) {
-    if (((millis() - lastPressed) > 100) && digitalRead(PIN_ENC_SW)) {
+    if (((millis() - lastPressed) > 1000) && digitalRead(PIN_ENC_SW)) {
+      lastPressed = millis();
       readPressed = false;
       btnState = true;
+      #ifdef ENABLE_DEBUG_PRINT
+      //DEBUG_PRINT("Value: ");
+        DEBUG_PRINTLN("Button pressed");
+      //DEBUG_PRINT("Digits: ");
+      //DEBUG_PRINTLN(out);
+      #endif
+
     }
   } else {
     readPressed = !digitalRead(PIN_ENC_SW);

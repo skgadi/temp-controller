@@ -8,16 +8,16 @@
 class GSK_PID {
   QuickPID pid;
   float r, y, u;
-  //Define the aggressive and conservative and POn Tuning Parameters
-  float aggKp = 4, aggKi = 0.2, aggKd = 1;
-  float consKp = 1, consKi = 0.05, consKd = 0.25;
+  float Kp = 0.02, Ki = 0.05, Kd = 0.01;
   void setup();
   public:
   GSK_PID();
   void loop();
-  void updateR(float);
-  void updateY(float);
+  void setR(float);
+  void setY(float);
   float getU();
+  float getR();
+  float getY();
 };
 
 #endif

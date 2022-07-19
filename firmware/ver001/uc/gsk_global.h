@@ -3,6 +3,15 @@
 
 #include <Arduino.h>
 
+#define ENABLE_DEBUG_PRINT
+
+#ifdef ENABLE_DEBUG_PRINT
+  #define DEBUG_PRINT(x) Serial.print(x)
+  #define DEBUG_PRINTLN(x) Serial.println(x)
+#else
+  #define DEBUG_PRINT(x)
+  #define DEBUG_PRINTLN(x)
+#endif
 
 
 #define LCD_COLS 20
@@ -29,6 +38,9 @@
 #define PIN_ENC_SW 27
 #define PIN_ENC_CLK 14
 #define PIN_ENC_DT 23
+
+
+
 
 void IRAM_ATTR readEncoderISR();
 
