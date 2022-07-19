@@ -8,5 +8,9 @@ void GSK_SENSOR::setup () {
 }
 
 float GSK_SENSOR::readTemperature() {
+    #ifdef ENABLE_DEBUG_PRINT
+    DEBUG_PRINTLN("thermocouple.readCelsius(): " + String(thermocouple.readCelsius()));
+  #endif
+
   return thermocouple.readCelsius();
 }
