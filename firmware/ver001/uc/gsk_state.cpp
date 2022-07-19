@@ -67,6 +67,9 @@ void GSK_STATE::loop() {
   }
 
   pid->setY(sensor->readTemperature());
+  #ifdef ENABLE_DEBUG_PRINT
+    DEBUG_PRINTLN("sensor->readTemperature(): " + String(sensor->readTemperature()));
+  #endif
   pid->loop();
   encoder->loop();
   pwm->setState(pid->getU());
