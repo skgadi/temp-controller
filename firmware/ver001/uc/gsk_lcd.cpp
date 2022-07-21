@@ -15,6 +15,8 @@ void GSK_LCD::resetDispaly() {
   lcd.init();
   lcd.backlight();
   lcd.clear();
+  prevSetPoint = 0;
+  prevTemperature = 0;
 }
 
 void GSK_LCD::putTemplate () {

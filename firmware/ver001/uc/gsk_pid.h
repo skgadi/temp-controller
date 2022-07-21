@@ -18,6 +18,9 @@ class GSK_PID {
   float getU();
   float getR();
   float getY();
+  float getComputerKp();
+  float getComputerKi();
+  float getComputerKd();
 };
 
 #endif

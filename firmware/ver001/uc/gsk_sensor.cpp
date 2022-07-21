@@ -7,10 +7,19 @@ GSK_SENSOR::GSK_SENSOR(): thermocouple(PIN_SPI_SCK, PIN_SPI_CS, PIN_SPI_MISO) {
 void GSK_SENSOR::setup () {
 }
 
-float GSK_SENSOR::readTemperature() {
-    #ifdef ENABLE_DEBUG_PRINT
-    DEBUG_PRINTLN("thermocouple.readCelsius(): " + String(thermocouple.readCelsius()));
-  #endif
-
-  return thermocouple.readCelsius();
+float GSK_SENSOR::getTempInCelsius() {
+  return tempInCelsius;
 }
+
+void GSK_SENSOR::measureTemperature() {
+  tempInCelsius = thermocouple.readCelsius();
+}
+
+float GSK_SENSOR::measureNReadTemperature() {
+  measureTemperature();
+  return getTempInCelsius();
+}
+
+
+
+

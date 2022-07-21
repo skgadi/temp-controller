@@ -7,9 +7,12 @@
 class GSK_SENSOR {
   void setup();
   MAX6675 thermocouple;
+  float tempInCelsius;
   public:
   GSK_SENSOR();
-  float readTemperature();
+  void measureTemperature();
+  float measureNReadTemperature();
+  float getTempInCelsius();
 };
 
 

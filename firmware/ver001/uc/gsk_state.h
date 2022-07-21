@@ -11,6 +11,7 @@
 
 #define UPDATE_LCD_TEMPLATE_EVERY_x_SEC (10*60)
 #define UPDATE_LCD_DATA_EVERY_x_M_SEC 100
+#define READ_TEMPERATURE_EVERY_x_M_SEC (300)
 
 
 class GSK_STATE {
@@ -18,6 +19,7 @@ class GSK_STATE {
   int cursorPosition;
   float lastLcdTemplate = -UPDATE_LCD_TEMPLATE_EVERY_x_SEC;
   float lastLcdData = -UPDATE_LCD_DATA_EVERY_x_M_SEC/1000.0;
+  float lastTemperatureRead = -READ_TEMPERATURE_EVERY_x_M_SEC/1000.0;
 
   void setup();
   GSK_SENSOR* sensor;

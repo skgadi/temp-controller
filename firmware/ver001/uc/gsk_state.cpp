@@ -13,7 +13,7 @@ void GSK_STATE::setup() {
   lcd = new GSK_LCD();
   editMode = false;
   cursorPosition = 0;
-  pid->setY(sensor->readTemperature());
+  pid->setY(sensor->measureNReadTemperature());
   float initialSetPoint = 15.0;
   pid->setR(initialSetPoint);
   encoder->setValue(initialSetPoint*10.0);
@@ -40,9 +40,6 @@ void GSK_STATE::loop() {
           DEBUG_PRINTLN("Value: " + String(relays->getStateFor(cursorPosition-1)));
         #endif
         } else {
-        cursorPosition = 0;
-        encoder->setBoundaries(0, 5000);
-        encoder->setValue(round(pid->getR()*10.0));
         editMode = false;
         #ifdef ENABLE_DEBUG_PRINT
           DEBUG_PRINTLN("Boundaries: (0, 5000)");
@@ -50,6 +47,9 @@ void GSK_STATE::loop() {
         #endif
       }
     } else {
+      cursorPosition = 0;
+      encoder->setBoundaries(0, 5000);
+      encoder->setValue(round(pid->getR()*10.0));
       editMode = true;
     }
 
@@ -66,10 +66,13 @@ void GSK_STATE::loop() {
     }
   }
 
-  pid->setY(sensor->readTemperature());
-  #ifdef ENABLE_DEBUG_PRINT
-    DEBUG_PRINTLN("sensor->readTemperature(): " + String(sensor->readTemperature()));
-  #endif
+  if ((t-lastTemperatureRead)*1000.0>=READ_TEMPERATURE_EVERY_x_M_SEC) {
+    lastTemperatureRead = t;
+    pid->setY(sensor->measureNReadTemperature());
+    #ifdef ENABLE_DEBUG_PRINT
+      DEBUG_PRINTLN("sensor->readTemperature(): " + String(sensor->getTempInCelsius()));
+    #endif
+  }
   pid->loop();
   encoder->loop();
   pwm->setState(pid->getU());
@@ -83,7 +86,7 @@ void GSK_STATE::isr() {
 }
 
 float GSK_STATE::getTemperature() {
-  return sensor->readTemperature();
+  return sensor->getTempInCelsius();
 }
 
 float GSK_STATE::getSetPoint() {

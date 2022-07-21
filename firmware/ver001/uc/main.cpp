@@ -22,7 +22,7 @@ void setup() {
 
 void loop () {
   gsk_state->loop();
-  delay(100);
+  delay(1);
 }
 
 void IRAM_ATTR readEncoderISR() {
