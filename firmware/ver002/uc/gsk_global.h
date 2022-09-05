@@ -2,6 +2,7 @@
 #define GSK_GLOBAL_H
 
 #include <Arduino.h>
+#include "json.hpp"
 
 //#define ENABLE_DEBUG_PRINT
 //

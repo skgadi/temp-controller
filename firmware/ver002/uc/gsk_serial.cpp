@@ -13,9 +13,68 @@ void GSK_SERIAL::setup() {
 
 void GSK_SERIAL::loop(void *param) {
   GSK_STATE *state = (GSK_STATE *)param;
+  nlohmann::json outObj;
+
   while (Serial.available() > 0) {
     try {
-      state->stopEditMode();
+      u_int64_t start = millis();
+      std::vector<std::uint8_t> cborArray = {};
+      while (Serial.available()) {
+        cborArray.push_back(Serial.read());
+      }
+      nlohmann::json inObj = nlohmann::json::from_cbor(cborArray);
+
+      //write uC
+      if (inObj.contains("W")) {
+        if (inObj["W"].contains("R")){
+          state->setSetPoint(inObj["W"]["R"]);
+        }
+        if (inObj["W"].contains("S0")){
+          state->setRelayState(0,inObj["W"]["S0"]);
+        }
+        if (inObj["W"].contains("S1")){
+          state->setRelayState(1,inObj["W"]["S1"]);
+        }
+        if (inObj["W"].contains("S2")){
+          state->setRelayState(2,inObj["W"]["S2"]);
+        }
+        if (inObj["W"].contains("S3")){
+          state->setRelayState(3,inObj["W"]["S3"]);
+        }
+      }
+
+
+
+
+      //Read uC values and send
+      outObj["R"] = inObj["R"];
+      if (outObj["R"].contains("R")){
+        outObj["R"]["R"] = state->getSetPoint();
+      }
+      if (outObj["R"].contains("T")){
+        outObj["R"]["T"] = state->getTemperature();
+      }
+      if (outObj["R"].contains("S0")){
+        outObj["R"]["S0"] = state->getRelayState(0);
+      }
+      if (outObj["R"].contains("S1")){
+        outObj["R"]["S1"] = state->getRelayState(1);
+      }
+      if (outObj["R"].contains("S2")){
+        outObj["R"]["S2"] = state->getRelayState(2);
+      }
+      if (outObj["R"].contains("S3")){
+        outObj["R"]["S3"] = state->getRelayState(3);
+      }
+
+
+      /*if(key == test) {
+        outObj["R"][i]["v"] = state->getSetPoint();
+      }*/
+      /*for(int i=0; i<inObj["R"].size(); i++) {
+      }*/
+
+      /*state->stopEditMode();
       String activity = Serial.readStringUntil(':');
       if (activity.equals("R")) {
         String measure = Serial.readStringUntil('\n');
@@ -71,9 +130,11 @@ void GSK_SERIAL::loop(void *param) {
         }
       } else {
         Serial.println("-1");
-      }
+      }*/
     } catch(...) {
-      Serial.println("-2");
+      outObj["error"] = true;
     }
+    std::vector <std::uint8_t> outBinArray = nlohmann::json::to_cbor(outObj);
+    Serial.write(outBinArray.data(), outBinArray.size());
   }
 }
